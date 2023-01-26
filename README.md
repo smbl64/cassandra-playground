@@ -26,3 +26,8 @@ Use your preferred tool or framework to interact with the cluster. You can also 
 ```
 docker-compose down -d
 ```
+
+## License
+This code is released under the [MIT License][license].
+
+[license]: ./LICENSE
