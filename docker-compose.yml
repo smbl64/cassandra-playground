@@ -9,6 +9,11 @@ services:
       - "./data/cassandra-1:/var/lib/cassandra"
     environment:
       - CASSANDRA_CLUSTER_NAME=my-cluster
+    healthcheck:
+      test: ["CMD-SHELL", "nodetool", "statusgossip"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
 
   cassandra-2:
@@ -20,6 +25,11 @@ services:
     environment:
       - CASSANDRA_CLUSTER_NAME=my-cluster
       - CASSANDRA_SEEDS=cassandra-1
+    healthcheck:
+      test: ["CMD-SHELL", "nodetool", "statusgossip"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   cassandra-3:
     image: cassandra:4.0
@@ -30,3 +40,8 @@ services:
     environment:
       - CASSANDRA_CLUSTER_NAME=my-cluster
       - CASSANDRA_SEEDS=cassandra-1,cassandra-2
+    healthcheck:
+      test: ["CMD-SHELL", "nodetool", "statusgossip"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
