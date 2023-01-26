@@ -13,5 +13,5 @@ fi
 for id in $containers
 do
     echo "Checking container $id"
-    docker exec -it cassandra-test-cassandra-1-1 nodetool status
+    docker exec -it "$id" nodetool status
 done
