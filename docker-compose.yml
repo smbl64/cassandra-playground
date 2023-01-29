@@ -6,14 +6,14 @@ services:
     ports:
       - 9042:9042
     volumes:
-      - "./data/cassandra-1:/var/lib/cassandra"
+      - "cassandra-1:/var/lib/cassandra"
     environment:
       - CASSANDRA_CLUSTER_NAME=my-cluster
     healthcheck:
       test: ["CMD-SHELL", "nodetool", "statusgossip"]
       interval: 30s
-      timeout: 10s
-      retries: 5
+      timeout: 30s
+      retries: 10
 
 
   cassandra-2:
@@ -21,27 +21,32 @@ services:
     ports:
       - 9043:9042
     volumes:
-      - "./data/cassandra-2:/var/lib/cassandra"
+      - "cassandra-2:/var/lib/cassandra"
     environment:
       - CASSANDRA_CLUSTER_NAME=my-cluster
       - CASSANDRA_SEEDS=cassandra-1
     healthcheck:
       test: ["CMD-SHELL", "nodetool", "statusgossip"]
       interval: 30s
-      timeout: 10s
-      retries: 5
+      timeout: 30s
+      retries: 10
 
   cassandra-3:
     image: cassandra:4.0
     ports:
       - 9044:9042
     volumes:
-      - "./data/cassandra-3:/var/lib/cassandra"
+      - "cassandra-3:/var/lib/cassandra"
     environment:
       - CASSANDRA_CLUSTER_NAME=my-cluster
       - CASSANDRA_SEEDS=cassandra-1,cassandra-2
     healthcheck:
       test: ["CMD-SHELL", "nodetool", "statusgossip"]
       interval: 30s
-      timeout: 10s
-      retries: 5
+      timeout: 30s
+      retries: 10
+
+volumes:
+  cassandra-1:
+  cassandra-2:
+  cassandra-3:
